@@ -1,11 +1,30 @@
-import './assets/main.css'
+import './assets/main.css';
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import PrimeVue from 'primevue/config';
 
-const app = createApp(App)
+import { initializeApp } from 'firebase/app';
 
-app.use(router)
+import 'primevue/resources/themes/lara-dark-indigo/theme.css';
+import 'primevue/resources/primevue.min.css';
+import 'primeicons/primeicons.css';
 
-app.mount('#app')
+const firebaseConfig = {
+    apiKey: "AIzaSyBYubmF94VKy__htLv68GPlaEMDWGrUsQk",
+    authDomain: "diploma-af35f.firebaseapp.com",
+    projectId: "diploma-af35f",
+    storageBucket: "diploma-af35f.appspot.com",
+    messagingSenderId: "384917310197",
+    appId: "1:384917310197:web:bee17e5e413d77218a53bc"
+};
+
+initializeApp(firebaseConfig);
+
+const app = createApp(App);
+
+app.use(PrimeVue);
+app.use(router);
+
+app.mount('#app');
