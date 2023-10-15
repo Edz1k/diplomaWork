@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex justify-content-center">
+  <div class="card flex justify-content-center askcall">
     <Button label="Заказать звонок" severity="warning" @click="visible = true" />
     <Dialog v-model:visible="visible" modal header="Заказать звонок">
       <template #default>
@@ -16,7 +16,7 @@
       </template>
       <template #footer>
         <Button label="Сбросить" severity="danger" icon="pi pi-times" @click="clearData" text />
-        <Button label="Добавить" severity="warning" icon="pi pi-check" @click="addAuto" autofocus></Button>
+        <Button label="Заказать звонок" severity="warning" icon="pi pi-check" @click="addAuto" autofocus></Button>
       </template>
     </Dialog>
   </div>
@@ -47,5 +47,8 @@ const addAuto = async () => {
 <style scoped>
     .p-field {
         margin-bottom: 20px;
+    }
+    .askcall{
+        margin-right: 20px;
     }
 </style>

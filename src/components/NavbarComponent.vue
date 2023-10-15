@@ -11,6 +11,7 @@
         <span class="tellog" href="tel:+77751442023">8 (775) 144-2023</span>
       </div>
       <ModalCall />
+      <UserProfile />
     </template>
   </Menubar>
 </template>
@@ -19,6 +20,7 @@
 import { ref } from 'vue'
 import Menubar from 'primevue/menubar'
 import ModalCall from './ModalCall.vue'
+import  UserProfile  from './UserProfile.vue';
 
 const items = ref<MenuItem[]>([
   {
