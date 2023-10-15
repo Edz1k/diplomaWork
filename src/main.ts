@@ -1,5 +1,3 @@
-import './assets/main.css';
-
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -7,7 +5,7 @@ import PrimeVue from 'primevue/config';
 
 import { initializeApp } from 'firebase/app';
 
-import 'primevue/resources/themes/lara-dark-indigo/theme.css';
+import 'primevue/resources/themes/soho-light/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 
