@@ -1,5 +1,5 @@
 <template>
-  <Menubar :model="items">
+  <Menubar :model="items" class="menubarchik">
     <template #start>
       <h2>Akeramzit</h2>
     </template>
@@ -51,6 +51,16 @@ interface MenuItem {
 </script>
 
 <style scoped>
+@media (max-width: 576px) {
+        .socialsnav{
+        display: none;
+    }
+}
+@media (max-width: 1080px) {
+    .socialsnav{
+      display: none;
+    }
+}
 :deep(.p-menubar-start) {
   margin-right: auto;
 }

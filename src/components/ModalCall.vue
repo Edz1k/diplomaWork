@@ -1,7 +1,7 @@
 <template>
   <div class="card flex justify-content-center">
     <Button label="Заказать звонок" severity="warning" @click="visible = true" />
-    <Dialog v-model:visible="visible" modal header="Заказать звонок" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="visible" modal header="Заказать звонок">
       <template #default>
         <div class="p-fluid">
           <div class="p-field">
@@ -45,6 +45,7 @@ const addAuto = async () => {
 }
 </script>
 <style scoped>
-    
-
+    .p-field {
+        margin-bottom: 20px;
+    }
 </style>
