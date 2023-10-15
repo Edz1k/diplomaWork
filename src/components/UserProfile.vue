@@ -1,5 +1,5 @@
 <template>
-    <Button label="Sign Up" icon="pi pi-user"  @click="googleRegister" v-if="!user">
+    <Button label="Sign Up" icon="pi pi-user"  @click="googleRegister" class="signUpBtn" v-if="!user">
     </Button>    
     <div v-if="user">
         <div class="imageProf">
@@ -57,6 +57,21 @@
 ]);
 </script>
 <style scoped>
+@media (max-width: 576px) {
+    .signUpBtn {
+        padding: 10px;
+        font-size: 10px;
+    }
+}
+@media (max-width: 380px) {
+    .signUpBtn {
+        padding: 5px;
+        font-size: 5px;
+    }
+    .imageProf img {
+        height: 30px;
+    }
+}
 .names {
     display: flex;
     flex-direction: column;

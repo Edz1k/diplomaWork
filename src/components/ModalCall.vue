@@ -1,6 +1,11 @@
 <template>
   <div class="card flex justify-content-center askcall">
-    <Button label="Заказать звонок" severity="warning" @click="visible = true" />
+    <Button
+      label="Заказать звонок"
+      severity="warning"
+      @click="visible = true"
+      class="askforacallbtn"
+    />
     <Dialog v-model:visible="visible" modal header="Заказать звонок">
       <template #default>
         <div class="p-fluid">
@@ -16,7 +21,13 @@
       </template>
       <template #footer>
         <Button label="Сбросить" severity="danger" icon="pi pi-times" @click="clearData" text />
-        <Button label="Заказать звонок" severity="warning" icon="pi pi-check" @click="addAuto" autofocus></Button>
+        <Button
+          label="Заказать звонок"
+          severity="warning"
+          icon="pi pi-check"
+          @click="addAuto"
+          autofocus
+        ></Button>
       </template>
     </Dialog>
   </div>
@@ -45,10 +56,22 @@ const addAuto = async () => {
 }
 </script>
 <style scoped>
-    .p-field {
-        margin-bottom: 20px;
+@media (max-width: 576px) {
+  .askforacallbtn {
+    padding: 10px;
+    font-size: 10px;
+  }
+}
+@media (max-width: 380px) {
+    .askforacallbtn {
+        padding: 7px;
+        font-size: 7px;
     }
-    .askcall{
-        margin-right: 20px;
-    }
+}
+.p-field {
+  margin-bottom: 20px;
+}
+.askcall {
+  margin-right: 20px;
+}
 </style>
