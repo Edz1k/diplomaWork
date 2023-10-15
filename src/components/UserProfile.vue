@@ -62,9 +62,6 @@
         padding: 10px;
         font-size: 10px;
     }
-    .imageProf img {
-        height: 30px;
-    }
 }
 @media (max-width: 380px) {
     .signUpBtn {
