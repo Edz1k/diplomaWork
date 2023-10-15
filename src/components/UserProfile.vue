@@ -63,15 +63,7 @@
         font-size: 10px;
     }
 }
-@media (max-width: 380px) {
-    .signUpBtn {
-        padding: 5px;
-        font-size: 5px;
-    }
-    .imageProf img {
-        height: 30px;
-    }
-}
+
 .names {
     display: flex;
     flex-direction: column;
@@ -121,5 +113,14 @@
 .smalltext{
     font-size: 13px;
     font-weight: 100;
+}
+@media (max-width: 380px) {
+    .signUpBtn {
+        padding: 5px;
+        font-size: 5px;
+    }
+    .imageProf img {
+        height: 30px;
+    }
 }
 </style>
