@@ -6,27 +6,28 @@ import { db, } from '@/firebase'
 import { ref, computed } from 'vue'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
+const user = ref()
+const userList = ref([] as DocumentData)
+const loading = ref({
+  user: false,
+  userList: false
+})
+const userRemake = computed(() => {
+  if (user.value) {
+    return {
+      displayName: user.value.displayName,
+      email: user.value.email,
+      photoURL: user.value.photoURL,
+      uid: user.value.uid
+    }
+  }
+  return null
+})
 export const useUser = () => {
-  const user = ref()
-  const userList = ref([] as DocumentData)
-  const loading = ref({
-    user: false,
-    userList: false
-  })
 
   const auth = getAuth()
 
-  const userRemake = computed(() => {
-    if (user.value) {
-      return {
-        displayName: user.value.displayName,
-        email: user.value.email,
-        photoURL: user.value.photoURL,
-        uid: user.value.uid
-      }
-    }
-    return null
-  })
+  
 
   function googleRegister() {
     const provider = new GoogleAuthProvider()
@@ -90,13 +91,16 @@ export const useUser = () => {
   }
 
   function googleLogout() {
-    localStorage.removeItem('user')
-    location.reload()
+    auth.signOut()
+    user.value = null;
   }
 
   return {
     user,
     loading,
+    userRemake,
+    userList,
+    getAllUsers,
     myFormTeleg,
     googleRegister,
     googleLogout
