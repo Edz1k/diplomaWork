@@ -1,5 +1,5 @@
  // eslint-disable-next-line no-unused-vars
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, type DocumentData } from 'firebase/firestore'
 import { db, } from '@/firebase'
 // eslint-disable-next-line no-unused-vars
 // import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -8,9 +8,10 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 export const useUser = () => {
   const user = ref()
-
+  const userList = ref([] as DocumentData)
   const loading = ref({
-    user: false
+    user: false,
+    userList: false
   })
 
   const auth = getAuth()
@@ -39,17 +40,53 @@ export const useUser = () => {
         console.error(error)
       })
   }
+  function myFormTeleg(name: string, phoneNumber: string) {
+    const xhr = new XMLHttpRequest();
+    const url = new URL('https://api.telegram.org/bot6238463059:AAFbuOgVxnYP9x59fphDCVhdgkjvTltF2P0/sendMessage');
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.responseType = 'json';
 
+    const requestList = JSON.stringify({
+        'chat_id': '@akeramzit',
+        'text': `Имя клиента: ${name}\nНомер телефона: ${phoneNumber}`,
+    });
+
+    xhr.send(requestList);
+    
+}
   async function addUserToMainDatabase() {
     loading.value.user = true
     try {
       if (userRemake.value) {
-        await addDoc(collection(db, 'users'), userRemake.value)
+        await getAllUsers()
+        if(!checkUserInDatabase()){
+          await addDoc(collection(db, 'users'), userRemake.value)
+        } else {
+          console.log('user already exist')
+        }       
       }
       loading.value.user = false
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async function getAllUsers() {
+    loading.value.userList = true
+    try {
+      const querySnapshot = await getDocs(collection(db, 'users'))
+      querySnapshot.forEach((doc) => {
+        userList.value.push(doc.data())
+      })
+      loading.value.userList = false
+    } catch (error) {
+      console.error(error)
+    }
+  } 
+
+  function checkUserInDatabase(){
+    return userList.value.some((item: any) => item.uid === userRemake.value?.uid)
   }
 
   function googleLogout() {
@@ -60,6 +97,7 @@ export const useUser = () => {
   return {
     user,
     loading,
+    myFormTeleg,
     googleRegister,
     googleLogout
   }
