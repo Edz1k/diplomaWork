@@ -15,9 +15,9 @@
                         </div>
                 </template>
                 <template #end>
-                    <button class="w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround">
+                    <button @click="googleLogout" class="w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround">
                         <i class="pi pi-sign-out logggout" />
-                        <span class="logggout" @click="googleLogout">Log Out</span>
+                        <span class="logggout" >Log Out</span>
                     </button>
             </template>
             </Menu>

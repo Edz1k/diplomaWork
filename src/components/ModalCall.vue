@@ -11,11 +11,11 @@
         <div class="p-fluid">
           <div class="p-field">
             <label for="name">Имя</label>
-            <InputText id="name" />
+            <InputText v-model="userCall.name" id="name" />
           </div>
           <div class="p-field">
             <label for="name">Номер телефона</label>
-            <InputMask id="basic" mask="+9 (999) 999 99-99" placeholder="+7 (___) ___ __-__" />
+            <InputMask v-model="userCall.phoneNumber" id="basic" mask="+9 (999) 999 99-99" placeholder="+7 (___) ___ __-__" />
           </div>
         </div>
       </template>
@@ -25,8 +25,14 @@
           label="Заказать звонок"
           severity="warning"
           icon="pi pi-check"
-          @click="addAuto"
+          @click="()=>{
+            myFormTeleg(userCall.name,userCall.phoneNumber)
+            visible = false;
+            userCall.name = '';
+            userCall.phoneNumber = '';  
+          }"
           autofocus
+          
         ></Button>
       </template>
     </Dialog>
@@ -38,9 +44,15 @@ import { ref } from 'vue'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import InputMask from 'primevue/inputmask'
+import {useUser} from '@/composable/useAnything';
+
+const {myFormTeleg} = useUser();
 
 const visible = ref(false)
-
+const userCall = ref({
+  name: '',
+  phoneNumber: ''
+})
 const toggleVisible = () => {
   visible.value = !visible.value
 }
@@ -49,11 +61,6 @@ const clearData = () => {
   toggleVisible()
 }
 
-const addAuto = async () => {
-  // await createAuto(newAuto.value);
-  // showSuccess();
-  toggleVisible()
-}
 </script>
 <style scoped>
 @media (max-width: 576px) {
