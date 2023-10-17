@@ -10,7 +10,7 @@ const user = ref()
 const userList = ref([] as DocumentData)
 const loading = ref({
   user: false,
-  userList: false
+  userList: false,
 })
 const userRemake = computed(() => {
   if (user.value) {

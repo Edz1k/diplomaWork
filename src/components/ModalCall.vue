@@ -61,11 +61,6 @@ const clearData = () => {
   toggleVisible()
 }
 
-const addAuto = async () => {
-  // await createAuto(newAuto.value);
-  // showSuccess();
-  toggleVisible()
-}
 </script>
 <style scoped>
 @media (max-width: 576px) {

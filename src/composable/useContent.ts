@@ -10,11 +10,12 @@ import { createId } from '@/services/method'
 export const useContent = () => {
   const content = ref()
   const newContent = ref({
-    id: createId(),
+    id: '',
     author: '',
     text: '',
     photo: '',
-    
+    stars: 4,
+
   })
   const contentList = ref([] as DocumentData)
 
@@ -43,6 +44,8 @@ export const useContent = () => {
     try {
       if (newContent.value && user.value) {
         newContent.value.author = user.value.displayName
+        newContent.value.photo = user.value.photoURL
+        newContent.value.id = createId();
         await addDoc(collection(db, 'content'), newContent.value)
         loading.value.newContent = false
       }
@@ -78,6 +81,7 @@ export const useContent = () => {
 
   return {
     content,
+    newContent,
     getContentById,
     addContent,
     deleteContent,
