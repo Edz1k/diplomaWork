@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex justify-content-center askcall">
+  <div class="askcall">
     <Button
       label="Оставить отзыв"
       severity="warning"
@@ -67,6 +67,13 @@ const clearData = () => {
 <style scoped>
 .p-field {
   margin-bottom: 20px;
+}
+.askcall{
+  display: flex;
+  justify-content: flex-end;
+}
+:deep(.p-button){
+  margin-right: 79px;
 }
 :deep(.p-rating .p-rating-item.p-rating-item-active .p-rating-icon){
     color: #ff9f42;

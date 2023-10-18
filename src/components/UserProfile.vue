@@ -111,7 +111,7 @@
     border: 2px solid #ccc;
 }
 .smalltext{
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 100;
 }
 @media (max-width: 380px) {

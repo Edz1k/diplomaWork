@@ -9,6 +9,6 @@ export function formatDate(date: number): string {
     const hours = _date.getHours();
     const minutes = _date.getMinutes();
 
-    return `${year}.${month < 10 ? '0' + month : month}.${day} ${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+    return `${day}.${month < 10 ? '0' + month : month}.${year} ${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
 }
 
