@@ -25,12 +25,7 @@
           label="Оставить отзыв"
           severity="warning"
           icon="pi pi-check"
-          @click="
-            () => {
-              addContent()
-              visible = false
-            }
-          "
+          @click="onClickContent"
           autofocus
         ></Button>
       </template>
@@ -48,12 +43,22 @@ import Textarea from 'primevue/textarea'
 
 import { useContent } from '@/composable/useContent'
 
-const { addContent, newContent } = useContent()
+const { addContent, newContent,getAllContent } = useContent()
 
 const visible = ref(false)
 const toggleVisible = () => {
   visible.value = !visible.value
 }
+
+async function onClickContent () {
+  toggleVisible()
+  const res = await addContent()
+  if (res) {
+    await getAllContent()
+  }
+  newContent.value.text = ''; 
+}
+
 const clearData = () => {
   // clear();
   toggleVisible()
