@@ -8,10 +8,14 @@
   <div v-else class="positioner">
     <Card v-for="key in sortedReviews" :key="key">
       <template #title>
+        <div v-if="user.uid">
+          <ButtonReviewRedact  class="buttonRedact"/>
+        </div> 
         <div class="avatarZag">
           <Avatar :image="key.photo" shape="circle" />
           {{ key.author }}
         </div>
+        
       </template>
       <template #content>
         <div class="rbRating">
@@ -23,6 +27,7 @@
         </div>
       </template>
     </Card>
+    
   </div>
 </template>
 <script setup lang="ts">
@@ -31,6 +36,7 @@ import { useContent } from '@/composable/useContent'
 import { useUser } from '@/composable/useAnything'
 import { formatDate } from '@/services/method'
 import { onMounted, computed } from 'vue'
+import ButtonReviewRedact from './ButtonReviewRedact.vue'
 
 import Avatar from 'primevue/avatar'
 import ModalReview from './ModalReview.vue'
@@ -54,6 +60,10 @@ const sortedReviews = computed(() => {
 });
 </script>
 <style scoped>
+.buttonRedact{
+  display: flex;
+  justify-content: flex-end;
+}
 .avatarZag {
   display: flex;
   align-items: center;
