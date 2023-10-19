@@ -1,100 +1,109 @@
 <template>
-    <div v-if="user">
-        <ModalReview />
-    </div>
-    <div v-if="contentList" class="positioner">
-        <Card v-for="key in contentList" :key="key">
-            <template #title>
-                <div class="avatarZag">
-                    <Avatar :image="key.photo" shape="circle" />
-                    {{key.author}}
-            </div>
-            </template>
-            <template #content>
-                <div class="rbRating">
-                    <p class="textContent">
-                        {{ key.text }}
-                    </p>
-                    <Rating v-model="key.stars" :cancel="false" readonly/>
-                </div>
-            </template>
-            
-                
-            
-        </Card>
-    </div>
-    <div v-else>
-        123s
-    </div>
-   
+  <div v-if="user">
+    <ModalReview />
+  </div>
+  <div v-if="loading.contentList">
+    <Skeleton width="100%" height="250px" />
+  </div>
+  <div v-else class="positioner">
+    <Card v-for="key in sortedReviews" :key="key">
+      <template #title>
+        <div class="avatarZag">
+          <Avatar :image="key.photo" shape="circle" />
+          {{ key.author }}
+        </div>
+      </template>
+      <template #content>
+        <div class="rbRating">
+          <p class="textContent">
+            {{ key.text }}
+          </p>
+          <Rating v-model="key.stars" :cancel="false" readonly />
+          <span class="smalltext">{{ formatDate(key.date) }}</span>
+        </div>
+      </template>
+    </Card>
+  </div>
 </template>
 <script setup lang="ts">
+import Card from 'primevue/card'
+import { useContent } from '@/composable/useContent'
+import { useUser } from '@/composable/useAnything'
+import { formatDate } from '@/services/method'
+import { onMounted, computed } from 'vue'
 
-import Card from 'primevue/card';
-import { useContent } from '@/composable/useContent';
-import { useUser } from '@/composable/useAnything';
-import { onMounted } from 'vue';
-
-import Avatar from 'primevue/avatar';
-import ModalReview from './ModalReview.vue';
+import Avatar from 'primevue/avatar'
+import ModalReview from './ModalReview.vue'
 import Rating from 'primevue/rating'
+import Skeleton from 'primevue/skeleton'
 
-const {getAllContent,contentList} = useContent();
-const {user} = useUser();
+const { getAllContent, contentList, loading} = useContent()
+const { user } = useUser()
 
 onMounted(async () => {
-    await getAllContent();
-    console.log(contentList.value);
-});
+  await getAllContent()
+})
 
+const sortedReviews = computed(() => {
+  let sortedData = contentList.value
+  sortedData = sortedData.sort((a:any, b:any) => {
+        return b.date - a.date;
+    });
+    console.log(sortedData)
+  return sortedData
+});
 </script>
 <style scoped>
-.avatarZag{
-    display: flex;
-    align-items: center;
+.avatarZag {
+  display: flex;
+  align-items: center;
 }
-:deep(.p-avatar){
-    margin-right: 10px;
+:deep(.p-avatar) {
+  margin-right: 10px;
 }
-:deep(.p-card){
-    margin-top: 50px;
-    width: 30%;
+:deep(.p-card) {
+  margin-top: 50px;
+  width: 30%;
 }
-:deep(.p-card-body){
-    min-height: 250px;
+:deep(.p-card-body) {
+  min-height: 250px;
 }
-:deep(.p-card-content){
-    height: 180px;
+:deep(.p-card-content) {
+  height: 180px;
 }
-.imagee{
-    width: 100%;
-    height: 250px;
+.imagee {
+  width: 100%;
+  height: 250px;
+}
+
+.smalltext {
+  opacity: 0.5;
 }
 .positioner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .rbRating {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .textContent {
-    word-wrap: break-word; /* This will allow text to wrap within the element */
+  word-wrap: break-word; /* This will allow text to wrap within the element */
 }
 @media (max-width: 576px) {
-    :deep(.p-card){
-        width: 90%;
-    }
+  :deep(.p-card) {
+    width: 90%;
+  }
 }
 @media (max-width: 1040px) {
-    :deep(.p-card-body){
-        min-height: 400px;
-    }
-    :deep(.p-card-content){
+  :deep(.p-card-body) {
+    min-height: 400px;
+  }
+  :deep(.p-card-content) {
     height: 360px;
-}
+  }
 }
 </style>

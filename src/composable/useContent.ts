@@ -7,17 +7,18 @@ import { ref } from 'vue'
 import { useUser } from './useAnything'
 import { createId } from '@/services/method'
 
-export const useContent = () => {
-  const content = ref()
-  const newContent = ref({
-    id: '',
-    author: '',
-    text: '',
-    photo: '',
-    stars: 4,
+const content = ref()
+const newContent = ref({
+  id: '',
+  author: '',
+  text: '',
+  photo: '',
+  stars: 4,
+  date: 0,
+})
+const contentList = ref([] as DocumentData)
 
-  })
-  const contentList = ref([] as DocumentData)
+export const useContent = () => {
 
   const loading = ref({
     content: false,
@@ -27,6 +28,7 @@ export const useContent = () => {
 
   async function getAllContent() {
     loading.value.contentList = true
+    contentList.value.length = 0;
     try {
       const querySnapshot = await getDocs(collection(db, 'content'))
       querySnapshot.forEach((doc) => {
@@ -45,9 +47,13 @@ export const useContent = () => {
       if (newContent.value && user.value) {
         newContent.value.author = user.value.displayName
         newContent.value.photo = user.value.photoURL
+        newContent.value.date = new Date().getTime()
         newContent.value.id = createId();
-        await addDoc(collection(db, 'content'), newContent.value)
+        const res = await addDoc(collection(db, 'content'), newContent.value)
         loading.value.newContent = false
+        
+        return res
+        
       }
     } catch (error) {
       console.error(error)
