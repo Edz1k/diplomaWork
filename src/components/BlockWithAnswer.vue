@@ -104,8 +104,6 @@ const user = ref({
         font-size: 10px;
     }
 }
-@media(max-width: 680px){
-}
 @media(max-width: 536px){
     :deep(.p-inputmask) {
         padding-right: 80px;
