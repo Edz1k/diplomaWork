@@ -119,6 +119,7 @@
     }
     .imageProf img {
         height: 30px;
+        width: 60%;
     }
 }
 </style>
