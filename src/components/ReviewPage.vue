@@ -7,10 +7,7 @@
   </div>
   <div v-else class="positioner">
     <Card v-for="key in sortedReviews" :key="key">
-      <template #title>
-        <div v-if="user.uid">
-          <ButtonReviewRedact  class="buttonRedact"/>
-        </div> 
+      <template #title> 
         <div class="avatarZag">
           <Avatar :image="key.photo" shape="circle" />
           {{ key.author }}
