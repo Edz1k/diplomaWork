@@ -78,14 +78,12 @@
     top: 85px;
     right: 20px;
     z-index: 100;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px white;
 }
 .logggout{
     color: #043d75;
     margin-right: 10px;
 }
+
 :deep(.p-menu-start){
     display: flex;
     align-items: center;

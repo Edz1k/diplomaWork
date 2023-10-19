@@ -4,22 +4,9 @@
       <div class="main">
           <div class="infotext">
               <h1><span>Лидер в производстве и продаже</span> керамзита по доступным ценам на выгодных условиях</h1>
-        </div>
-        <div class="where">
-              <p>Где можно купить керамзит? Закажите <span>доставку керамзита</span> в ваш регион</p>
-              <form action="#" method="POST" name="contactinfo">
-                <div class="form-pos">
-                  <div class="icon1">
-                  </div>
-                  <div class="icon1">
-                  </div>
-                </div>
-                <div class="form-text">
-                  <p><span>*</span> Оставляя свои данные вы даете согласие на <span>обработку персональных данных</span></p>
-                  <Button label="Отправить" class="signUpBtn" />
-                </div>
-              </form>
-            </div>
+          </div>
+          <BlockWithAnswer />
+        
       </div>
       
       <Galleria
@@ -43,7 +30,7 @@
   <script setup lang="ts">
       
   import Galleria from 'primevue/galleria';
-  import Button from 'primevue/button';
+  import BlockWithAnswer from './BlockWithAnswer.vue';
   import { ref } from 'vue';
   
   const images = ref([
@@ -58,32 +45,6 @@
     width: 50%;
   }
 
-  .where{
-	background: #F0DCD1;
-	padding: 40px 35px;
-	box-shadow: 0 2px 20px rgba(0,0,0,.05);
-	display: flex;
-	flex-wrap: wrap;
-  width: 100%;
-}
-.where p{
-	font-weight: 800;
-	font-size: 19px;
-	color: #565252;
-}
-.where span{
-	color: #fe7b3e;
-}
-.form-pos{
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-}
-.form-pos input{
-	border: 0;
-	outline: none;
-    background: white;
-}
 .main {
   display: flex;
   flex-direction: column;
@@ -97,8 +58,43 @@
     justify-content: space-around;
     align-items: center;
 }
+.infotext h1{
+	color: #565252;
+	font-weight: 800;
+	font-size: 39px;
+}
+
+.infotext span{
+	color: #fe7b3e;
+}
 :deep(.p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight){
   color: #fe7b3e;
+}
+:deep(.p-galleria-content){
+  width: 70%;
+  height: 430px;
+  padding-top: 35px;
+}
+@media (max-width: 960px){
+  .card{
+    flex-direction: column;
+    align-items: center;
+  }
+  .main{
+        width: 90%;
+  }
+  .infotext{
+    text-align: center;
+  }
+  :deep(.p-galleria){
+    display: flex;
+    justify-content: center;
+  }
+}
+@media(max-width: 635px){
+  .infotext h1{
+    font-size: 26px;
+  }
 }
   </style>
   
