@@ -3,7 +3,7 @@
     </Button>    
     <div v-if="user">
         <div class="imageProf">
-            <img :src="user.photoURL" alt="Avatar" style="width:100%;" @click="toggleVisible">
+            <Avatar :image="user.photoURL" class="imageProf" shape="circle" @click="toggleVisible"/>
         </div>
         <div v-if="visible" class="menushka">
             <Menu :model="items" >
@@ -63,7 +63,18 @@
         font-size: 10px;
     }
 }
-
+.imageProf{
+    width: 92%;
+    height: 48px;
+    transition: 200ms;
+}
+.imageProf:hover{
+   opacity: 0.5;
+}
+.smalltext{
+    font-size: 12px;
+    opacity: 0.8;
+}
 .names {
     display: flex;
     flex-direction: column;
@@ -104,14 +115,6 @@
     border: 1px solid #ccc;
     transition: 200ms;
 }
-.imageProf img:hover {
-    opacity: 0.5;
-    border: 2px solid #ccc;
-}
-.smalltext{
-    font-size: 11px;
-    font-weight: 100;
-}
 @media (max-width: 380px) {
     .signUpBtn {
         padding: 5px;
@@ -119,7 +122,6 @@
     }
     .imageProf img {
         height: 30px;
-        width: 60%;
     }
 }
 </style>
