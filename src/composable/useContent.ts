@@ -49,11 +49,11 @@ export const useContent = () => {
         newContent.value.photo = user.value.photoURL
         newContent.value.date = new Date().getTime()
         newContent.value.id = createId();
-        const res = await addDoc(collection(db, 'content'), newContent.value)
+        if(newContent.value.text){
+          const res = await addDoc(collection(db, 'content'), newContent.value)
+          return res
+        }      
         loading.value.newContent = false
-        
-        return res
-        
       }
     } catch (error) {
       console.error(error)

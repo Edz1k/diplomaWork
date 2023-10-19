@@ -53,6 +53,11 @@ const user = ref({
 </script>
 
 <style scoped>
+@media(min-width: 1700px){
+    .cartochka{
+        width: 80%;
+    }
+}
 .positioner {
   display: flex;
   justify-content: space-between;
