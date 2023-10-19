@@ -52,9 +52,9 @@ export const useUser = () => {
         'chat_id': '@akeramzit',
         'text': `Имя клиента: ${name}\nНомер телефона: ${phoneNumber}`,
     });
-
-    xhr.send(requestList);
-    
+    if(name && phoneNumber){
+      xhr.send(requestList);
+    } 
 }
   async function addUserToMainDatabase() {
     loading.value.user = true
