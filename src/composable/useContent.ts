@@ -5,12 +5,12 @@ import { db } from '@/firebase'
 // import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { ref } from 'vue'
 import { useUser } from './useAnything'
-import { createId } from '@/services/method'
 
 const content = ref()
 const newContent = ref({
   id: '',
   author: '',
+  userId: '',
   text: '',
   photo: '',
   stars: 4,
@@ -48,7 +48,7 @@ export const useContent = () => {
         newContent.value.author = user.value.displayName
         newContent.value.photo = user.value.photoURL
         newContent.value.date = new Date().getTime()
-        newContent.value.id = createId();
+        newContent.value.userId = user.value.uid
         if(newContent.value.text){
           const res = await addDoc(collection(db, 'content'), newContent.value)
           return res

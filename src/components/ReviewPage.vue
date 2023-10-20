@@ -6,12 +6,14 @@
     <Skeleton width="100%" height="250px" />
   </div>
   <div v-else class="positioner">
+    
     <Card v-for="key in sortedReviews" :key="key">
       <template #title>
         <div class="avatarZag">
           <Avatar :image="key.photo" shape="circle" />
           {{ key.author }}
-        </div>
+          <ButtonReviewRedact class="buttonRedact"/>
+        </div> 
       </template>
       <template #content>
         <div class="rbRating">
@@ -23,6 +25,7 @@
         </div>
       </template>
     </Card>
+    
   </div>
 </template>
 <script setup lang="ts">
@@ -31,6 +34,7 @@ import { useContent } from '@/composable/useContent'
 import { useUser } from '@/composable/useAnything'
 import { formatDate } from '@/services/method'
 import { onMounted, computed } from 'vue'
+import ButtonReviewRedact from './ButtonReviewRedact.vue'
 
 import Avatar from 'primevue/avatar'
 import ModalReview from './ModalReview.vue'
@@ -39,6 +43,7 @@ import Skeleton from 'primevue/skeleton'
 
 const { getAllContent, contentList, loading} = useContent()
 const { user } = useUser()
+
 
 onMounted(async () => {
   await getAllContent()
@@ -54,6 +59,9 @@ const sortedReviews = computed(() => {
 });
 </script>
 <style scoped>
+.buttonRedact{
+  margin-left: 135px;
+}
 .avatarZag {
   display: flex;
   align-items: center;
