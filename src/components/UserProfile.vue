@@ -122,6 +122,11 @@
     }
     .imageProf img {
         height: 30px;
+        width: 30px;
+    }
+    :deep(.p-avatar img){
+        height: 30px;
+        width: 30px;
     }
 }
 </style>

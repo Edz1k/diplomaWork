@@ -6,13 +6,14 @@
     <Skeleton width="100%" height="250px" />
   </div>
   <div v-else class="positioner">
+    
     <Card v-for="key in sortedReviews" :key="key">
-      <template #title> 
+      <template #title>
         <div class="avatarZag">
           <Avatar :image="key.photo" shape="circle" />
           {{ key.author }}
-        </div>
-        
+          <ButtonReviewRedact class="buttonRedact"/>
+        </div> 
       </template>
       <template #content>
         <div class="rbRating">
@@ -43,6 +44,7 @@ import Skeleton from 'primevue/skeleton'
 const { getAllContent, contentList, loading} = useContent()
 const { user } = useUser()
 
+
 onMounted(async () => {
   await getAllContent()
 })
@@ -58,8 +60,7 @@ const sortedReviews = computed(() => {
 </script>
 <style scoped>
 .buttonRedact{
-  display: flex;
-  justify-content: flex-end;
+  margin-left: 135px;
 }
 .avatarZag {
   display: flex;
