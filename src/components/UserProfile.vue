@@ -83,6 +83,9 @@
 :deep(.p-avatar){
     margin-right: 5px;
     margin-left: 5px;
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
 }
 .menushka {
     position: absolute;

@@ -9,11 +9,15 @@
     
     <Card v-for="key in sortedReviews" :key="key">
       <template #title>
-        <div class="avatarZag">
+        <div class="avatarZag"> 
           <Avatar :image="key.photo" shape="circle" />
           {{ key.author }}
-          <ButtonReviewRedact class="buttonRedact"/>
-        </div> 
+          <template v-if="user">
+            <template v-if="user.uid === key.userId">
+              <ButtonReviewRedact class="buttonRedact" :review="key" />
+            </template>
+          </template>
+        </div>
       </template>
       <template #content>
         <div class="rbRating">
@@ -48,6 +52,7 @@ const { user } = useUser()
 onMounted(async () => {
   await getAllContent()
 })
+
 
 const sortedReviews = computed(() => {
   let sortedData = contentList.value
