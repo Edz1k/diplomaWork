@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import { collection, deleteDoc, doc, getDocs, addDoc, type DocumentData } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, addDoc, type DocumentData, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
-import { deleteObject } from 'firebase/storage'
 // eslint-disable-next-line no-unused-vars
 // import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { ref } from 'vue'
@@ -76,6 +75,17 @@ export const useContent = () => {
       console.error(error)
     }
   }
+  async function updateDocById(firebaseId:any) {
+    loading.value.content = true
+    try {
+      await updateDoc(doc(db, 'content', firebaseId), newContent.value)
+      console.log(newContent.value)
+      loading.value.content = false
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
 
   async function getContentById(id: string) {
     loading.value.content = true
@@ -92,10 +102,15 @@ export const useContent = () => {
     }
   }
 
-   async function onChangeEditButton(review: any) {
+   async function onDeleteButton(review: any) {
     selectedReview.value = review
     await deleteDocById(review.firebaseId)
     await getAllContent()
+  }
+  async function onChangeEditButton(review:any) {
+    selectedReview.value = review
+    await updateDocById(review.firebaseId)
+    await load()
   }
 
   async function load() {
@@ -110,6 +125,7 @@ export const useContent = () => {
     addContent,
     deleteDocById,
     getAllContent,
+    onDeleteButton,
     contentList,
     loading,
     onChangeEditButton,
