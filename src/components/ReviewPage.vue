@@ -7,14 +7,14 @@
   </div>
   <div v-else class="positioner">
     
-    <Card v-for="key in sortedReviews" :key="key">
+    <Card v-for="review in sortedReviews" :key="review.firebaseId">
       <template #title>
         <div class="avatarZag"> 
-          <Avatar :image="key.photo" shape="circle" />
-          {{ key.author }}
+          <Avatar :image="review.photo" shape="circle" />
+          {{ review.author }}
           <template v-if="user">
-            <template v-if="user.uid === key.userId">
-              <ButtonReviewRedact class="buttonRedact" :review="key" />
+            <template v-if="user.uid === review.userId">
+              <ButtonReviewRedact class="buttonRedact" :review="review" />
             </template>
           </template>
         </div>
@@ -22,10 +22,10 @@
       <template #content>
         <div class="rbRating">
           <p class="textContent">
-            {{ key.text }}
+            {{ review.text }}
           </p>
-          <Rating v-model="key.stars" :cancel="false" readonly />
-          <span class="smalltext">{{ formatDate(key.date) }}</span>
+          <Rating v-model="review.stars" :cancel="false" readonly />
+          <span class="smalltext">{{ formatDate(review.date) }}</span>
         </div>
       </template>
     </Card>

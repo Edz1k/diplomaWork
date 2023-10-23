@@ -98,6 +98,10 @@ export const useContent = () => {
     await getAllContent()
   }
 
+  async function load() {
+    await getAllContent()
+  }
+
 
   return {
     content,
@@ -110,6 +114,6 @@ export const useContent = () => {
     loading,
     onChangeEditButton,
     selectedReview,
-
+    load,
   }
 }
