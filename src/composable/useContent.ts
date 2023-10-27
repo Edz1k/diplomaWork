@@ -6,6 +6,7 @@ import { db } from '@/firebase'
 import { ref } from 'vue'
 import { useUser } from './useAnything'
 
+
 const content = ref()
 const newContent = ref({
   author: '',
@@ -16,6 +17,16 @@ const newContent = ref({
   date: 0,
 })
 const contentList = ref([] as DocumentData)
+
+const editContent = ref({
+  author: '',
+  userId: '',
+  text: '',
+  photo: '',
+  stars: 4,
+  date: 0,
+}
+)
 
 const selectedReview = ref('')
 
@@ -39,7 +50,6 @@ export const useContent = () => {
         }
         contentList.value.push(compressive)
       })
-
       loading.value.contentList = false
     } catch (error) {
       console.error(error)
@@ -78,8 +88,8 @@ export const useContent = () => {
   async function updateDocById(firebaseId:any) {
     loading.value.content = true
     try {
-      await updateDoc(doc(db, 'content', firebaseId), newContent.value)
-      console.log(newContent.value)
+      await updateDoc(doc(db, 'content', firebaseId), editContent.value)
+      console.log(editContent.value)
       loading.value.content = false
     } catch (error) {
       console.error(error)
@@ -96,6 +106,7 @@ export const useContent = () => {
           content.value = doc.data()
         }
       })
+      console.log(content.value)
       loading.value.content = false
     } catch (error) {
       console.error(error)
@@ -108,7 +119,11 @@ export const useContent = () => {
     await getAllContent()
   }
   async function onChangeEditButton(review:any) {
-    selectedReview.value = review
+    editContent.value = review
+  }
+
+  async function editReviewValue(review: any) {
+    console.log(editContent.value)
     await updateDocById(review.firebaseId)
     await load()
   }
@@ -125,9 +140,12 @@ export const useContent = () => {
     addContent,
     deleteDocById,
     getAllContent,
+    updateDocById,
     onDeleteButton,
+    editReviewValue,
     contentList,
     loading,
+    editContent,
     onChangeEditButton,
     selectedReview,
     load,

@@ -13,6 +13,7 @@
 <template>
   <NavbarComponent />
   <RouterView/>
+  модалка для редактирования отзыва с в-иф
 </template>
 
 <style scoped>

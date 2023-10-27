@@ -15,7 +15,12 @@
           </div>
           <div class="p-field">
             <label for="name">Номер телефона</label>
-            <InputMask v-model="userCall.phoneNumber" id="basic" mask="+9 (999) 999 99-99" placeholder="+7 (___) ___ __-__" />
+            <InputMask
+              v-model="userCall.phoneNumber"
+              id="basic"
+              mask="+9 (999) 999 99-99"
+              placeholder="+7 (___) ___ __-__"
+            />
           </div>
         </div>
       </template>
@@ -25,43 +30,51 @@
           label="Заказать звонок"
           severity="warning"
           icon="pi pi-check"
-          @click="()=>{
-            myFormTeleg(userCall.name,userCall.phoneNumber)
-            visible = false;
-            userCall.name = '';
-            userCall.phoneNumber = '';  
-          }"
+          @click="
+            () => {
+              myFormTeleg(userCall.name, userCall.phoneNumber)
+              visible = false
+              userCall.name = ''
+              userCall.phoneNumber = ''
+            }
+          "
           autofocus
-          
         ></Button>
       </template>
     </Dialog>
   </div>
 </template>
+
 <script setup lang="ts">
 import Button from 'primevue/button'
 import { ref } from 'vue'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import InputMask from 'primevue/inputmask'
-import {useUser} from '@/composable/useAnything';
+import { useUser } from '@/composable/useAnything'
 
-const {myFormTeleg} = useUser();
+const { myFormTeleg } = useUser()
 
 const visible = ref(false)
 const userCall = ref({
   name: '',
   phoneNumber: ''
 })
+
+// @change - emit('change', $event)
+// [{field: 'name', value: '', type: 'input'}, {field: 'phoneNumber', value: '', type: 'dropdown', options: [{}]}}]
+
 const toggleVisible = () => {
   visible.value = !visible.value
 }
+
 const clearData = () => {
   // clear();
   toggleVisible()
 }
-
 </script>
+
+
 <style scoped>
 @media (max-width: 576px) {
   .askforacallbtn {
@@ -70,10 +83,10 @@ const clearData = () => {
   }
 }
 @media (max-width: 380px) {
-    .askforacallbtn {
-        padding: 7px;
-        font-size: 7px;
-    }
+  .askforacallbtn {
+    padding: 7px;
+    font-size: 7px;
+  }
 }
 .p-field {
   margin-bottom: 20px;

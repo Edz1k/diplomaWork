@@ -59,7 +59,6 @@ const sortedReviews = computed(() => {
   sortedData = sortedData.sort((a:any, b:any) => {
         return b.date - a.date;
     });
-    console.log(sortedData)
   return sortedData
 });
 </script>
