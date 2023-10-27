@@ -7,21 +7,25 @@
   </div>
   <div v-else class="positioner">
     
-    <Card v-for="key in sortedReviews" :key="key">
+    <Card v-for="review in sortedReviews" :key="review.firebaseId">
       <template #title>
-        <div class="avatarZag">
-          <Avatar :image="key.photo" shape="circle" />
-          {{ key.author }}
-          <ButtonReviewRedact class="buttonRedact"/>
-        </div> 
+        <div class="avatarZag"> 
+          <Avatar :image="review.photo" shape="circle" />
+          {{ review.author }}
+          <template v-if="user">
+            <template v-if="user.uid === review.userId">
+              <ButtonReviewRedact class="buttonRedact" :review="review" />
+            </template>
+          </template>
+        </div>
       </template>
       <template #content>
         <div class="rbRating">
           <p class="textContent">
-            {{ key.text }}
+            {{ review.text }}
           </p>
-          <Rating v-model="key.stars" :cancel="false" readonly />
-          <span class="smalltext">{{ formatDate(key.date) }}</span>
+          <Rating v-model="review.stars" :cancel="false" readonly />
+          <span class="smalltext">{{ formatDate(review.date) }}</span>
         </div>
       </template>
     </Card>
@@ -49,12 +53,12 @@ onMounted(async () => {
   await getAllContent()
 })
 
+
 const sortedReviews = computed(() => {
   let sortedData = contentList.value
   sortedData = sortedData.sort((a:any, b:any) => {
         return b.date - a.date;
     });
-    console.log(sortedData)
   return sortedData
 });
 </script>

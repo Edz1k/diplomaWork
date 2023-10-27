@@ -1,14 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-import { collection, deleteDoc, doc, getDocs, addDoc, type DocumentData } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, addDoc, type DocumentData, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 // eslint-disable-next-line no-unused-vars
 // import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { ref } from 'vue'
 import { useUser } from './useAnything'
 
+
 const content = ref()
 const newContent = ref({
-  id: '',
   author: '',
   userId: '',
   text: '',
@@ -17,6 +17,18 @@ const newContent = ref({
   date: 0,
 })
 const contentList = ref([] as DocumentData)
+
+const editContent = ref({
+  author: '',
+  userId: '',
+  text: '',
+  photo: '',
+  stars: 4,
+  date: 0,
+}
+)
+
+const selectedReview = ref('')
 
 export const useContent = () => {
 
@@ -32,7 +44,11 @@ export const useContent = () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'content'))
       querySnapshot.forEach((doc) => {
-        contentList.value.push(doc.data())
+        const compressive = {
+          firebaseId: doc.id,
+          ...doc.data()
+        }
+        contentList.value.push(compressive)
       })
       loading.value.contentList = false
     } catch (error) {
@@ -60,14 +76,25 @@ export const useContent = () => {
     }
   }
 
-  async function deleteContent(id: string) {
+  async function deleteDocById(firebaseId: string) {
     loading.value.content = true
     try {
-      await deleteDoc(doc(db, 'content', id))
+      await deleteDoc(doc(db, 'content', firebaseId))
       loading.value.content = false
     } catch (error) {
       console.error(error)
     }
+  }
+  async function updateDocById(firebaseId:any) {
+    loading.value.content = true
+    try {
+      await updateDoc(doc(db, 'content', firebaseId), editContent.value)
+      console.log(editContent.value)
+      loading.value.content = false
+    } catch (error) {
+      console.error(error)
+    }
+
   }
 
   async function getContentById(id: string) {
@@ -79,20 +106,48 @@ export const useContent = () => {
           content.value = doc.data()
         }
       })
+      console.log(content.value)
       loading.value.content = false
     } catch (error) {
       console.error(error)
     }
   }
 
+   async function onDeleteButton(review: any) {
+    selectedReview.value = review
+    await deleteDocById(review.firebaseId)
+    await getAllContent()
+  }
+  async function onChangeEditButton(review:any) {
+    editContent.value = review
+  }
+
+  async function editReviewValue(review: any) {
+    console.log(editContent.value)
+    await updateDocById(review.firebaseId)
+    await load()
+  }
+
+  async function load() {
+    await getAllContent()
+  }
+
+
   return {
     content,
     newContent,
     getContentById,
     addContent,
-    deleteContent,
+    deleteDocById,
     getAllContent,
+    updateDocById,
+    onDeleteButton,
+    editReviewValue,
     contentList,
-    loading
+    loading,
+    editContent,
+    onChangeEditButton,
+    selectedReview,
+    load,
   }
 }
