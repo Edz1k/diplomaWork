@@ -74,7 +74,7 @@ const clearData = () => {
   justify-content: flex-end;
 }
 :deep(.p-button){
-  margin-right: 79px;
+  margin-right: 86px;
 }
 :deep(.p-rating .p-rating-item.p-rating-item-active .p-rating-icon){
     color: #ff9f42;
