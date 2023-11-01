@@ -26,12 +26,14 @@
       </Galleria>
     </div>
     <QualitiesComponent class="qualitiesComponent"/>
+    <KeramzitForm class="KeramzitForm"/>
   </template>
   <script setup lang="ts">
       
   import Galleria from 'primevue/galleria';
   import BlockWithAnswer from './BlockWithAnswer.vue';
   import QualitiesComponent from './QualitiesComponent.vue';
+  import KeramzitForm from './KeramzitForm.vue';
   import { ref } from 'vue';
   
   const images = ref([
@@ -46,6 +48,9 @@
     width: 50%;
   }
   .qualitiesComponent{
+    margin-top: 50px;
+  }
+  .KeramzitForm{
     margin-top: 50px;
   }
 
@@ -71,8 +76,8 @@
 .infotext span{
 	color: #fe7b3e;
 }
-:deep(.p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight){
-  color: #fe7b3e;
+:deep(.p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button){
+  background-color: #fe7b3e;
 }
 :deep(.p-galleria-content){
   width: 70%;
