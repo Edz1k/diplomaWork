@@ -127,10 +127,14 @@ const items = ref([
   .imageProf img {
     height: 30px;
     width: 30px;
+    max-height: 30px;
+    max-width: 30px;
   }
   :deep(.p-avatar img) {
     height: 30px;
     width: 30px;
+    max-height: 30px;
+    max-width: 30px;
   }
 }
 </style>

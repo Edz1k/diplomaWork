@@ -78,5 +78,27 @@
         opacity: 0;
     }
 }
-
+@media(max-width: 850px) {
+    .positioner{
+        flex-direction: column;
+    }
+    .contact{
+        width: 90%;
+    }
+    .contact_info{
+        width: 90%;
+    }
+}
+@media(max-width: 470px){
+    .contact span{
+        font-size: 28px;
+    }
+}
+@media(max-width: 310px){
+    .contact span{
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 53px;
+    }
+}
 </style>
