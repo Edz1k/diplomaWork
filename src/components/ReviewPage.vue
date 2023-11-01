@@ -11,7 +11,7 @@
       <template #title>
         <div class="avatarZag"> 
           <Avatar :image="review.photo" shape="circle" />
-          {{ review.author }}
+          <p class="reviewAuthor">{{ review.author }}</p>
           <template v-if="user">
             <template v-if="user.uid === review.userId">
               <ButtonReviewRedact class="buttonRedact" :review="review" />
@@ -63,8 +63,9 @@ const sortedReviews = computed(() => {
 });
 </script>
 <style scoped>
-.buttonRedact{
-  margin-left: 135px;
+.reviewAuthor{
+  margin: 0px;
+  flex-basis: 73%;
 }
 .avatarZag {
   display: flex;
@@ -105,11 +106,12 @@ const sortedReviews = computed(() => {
 .textContent {
   word-wrap: break-word; /* This will allow text to wrap within the element */
 }
-@media (max-width: 576px) {
-  :deep(.p-card) {
-    width: 90%;
+@media(max-width: 576px){
+  .reviewAuthor{
+    flex-basis: 65%;
   }
 }
+
 @media (max-width: 1040px) {
   :deep(.p-card-body) {
     min-height: 400px;
@@ -117,5 +119,24 @@ const sortedReviews = computed(() => {
   :deep(.p-card-content) {
     height: 360px;
   }
+  :deep(.p-card){
+    flex-basis: 49%;
+  }
 }
+@media(max-width: 1310px){
+  .reviewAuthor{
+    flex-basis: 50%;
+  }
+}
+@media(max-width: 1655px){
+  .reviewAuthor{
+    flex-basis: 65%;
+  }
+}
+@media (max-width: 636px) {
+  :deep(.p-card) {
+    flex-basis: 90%;
+  }
+}
+
 </style>
