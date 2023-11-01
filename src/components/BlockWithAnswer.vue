@@ -28,7 +28,7 @@
         <Button
             label="Заказать доставку"
             class="p-button-warning askforcallbtn"
-            @click="myFormTeleg(user.name, user.phoneNumber)"
+            @click="onClick"
         />
       </div>
       
@@ -43,6 +43,14 @@ import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import { ref } from 'vue'
 import InputMask from 'primevue/inputmask'
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
+
+const showSucces = () => {
+  toast.add({severity: "success",summary: 'Успешно', detail: 'Ваша заявка принята, ожидайте ответ', life: 3000});
+};
+
 
 const { myFormTeleg } = useUser()
 
@@ -50,6 +58,20 @@ const user = ref({
   name: '',
   phoneNumber: ''
 })
+
+
+
+function onClick(){
+  if(user.value.name === '' || user.value.phoneNumber === ''){
+    toast.add({severity: "warn",summary: 'Внимание', detail: 'Заполните все поля', life: 3000});
+  }else{
+    myFormTeleg(user.value.name, user.value.phoneNumber)
+    showSucces()
+    user.value.name = ''
+    user.value.phoneNumber = ''
+  }
+
+}
 </script>
 
 <style scoped>

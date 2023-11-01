@@ -2,7 +2,7 @@
     
   <div>
     <Button icon="pi pi-pencil" severity="warning" rounded aria-label="Cancel" class="buttons" @click="getModalChanger(review)"/>
-    <Button icon="pi pi-trash" severity="danger" rounded aria-label="Cancel" class="buttons" @click="onDeleteButton(review)"/>
+    <Button icon="pi pi-trash" severity="danger" rounded aria-label="Cancel" class="buttons" @click="onClickDelete"/>
   </div>
 
   <Dialog v-model:visible="visible" modal header="Редактировать отзыв">
@@ -24,7 +24,7 @@
           label="Редактировать отзыв"
           severity="warning"
           icon="pi pi-check"
-          @click="editReviewValue(review)"
+          @click="onClickEdit"
           autofocus
         ></Button>
       </template>
@@ -38,15 +38,31 @@ import { ref } from 'vue'
 import Rating from 'primevue/rating'
 import Textarea from 'primevue/textarea'
 import { useContent } from '@/composable/useContent'
+import { useToast } from 'primevue/usetoast';
 
+const toast = useToast();
 const { editContent } = useContent()
 const { onDeleteButton, onChangeEditButton,editReviewValue } = useContent()
-defineProps({
+const props = defineProps({
     review: {
     type: Object,
     required: true
   }
 })
+const showSucces = ()=>{
+  toast.add({severity: "success",summary: 'Успешно', detail: 'Ваш отзыв отредактирован', life: 3000});
+};
+const showSuccesDelete = ()=>{
+  toast.add({severity: "success",summary: 'Успешно', detail: 'Ваш отзыв удален', life: 3000});
+};
+async function onClickEdit(){
+  await editReviewValue(props.review)
+  showSucces()
+}
+async function onClickDelete(){
+  await onDeleteButton(props.review)
+  showSuccesDelete()
+}
 
 const visible = ref(false)
 const toggleVisible = () => {
@@ -75,5 +91,8 @@ const clearData = () => {
 }
 :deep(.askforacallbtn){
     display: none;
+}
+:deep(.p-rating .p-rating-item.p-rating-item-active .p-rating-icon){
+    color: #ff9f42;
 }
 </style>

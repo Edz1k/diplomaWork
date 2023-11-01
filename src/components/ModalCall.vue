@@ -30,14 +30,7 @@
           label="Заказать звонок"
           severity="warning"
           icon="pi pi-check"
-          @click="
-            () => {
-              myFormTeleg(userCall.name, userCall.phoneNumber)
-              visible = false
-              userCall.name = ''
-              userCall.phoneNumber = ''
-            }
-          "
+          @click="onClick"
           autofocus
         ></Button>
       </template>
@@ -52,6 +45,13 @@ import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import InputMask from 'primevue/inputmask'
 import { useUser } from '@/composable/useAnything'
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
+
+const showSucces = () => {
+  toast.add({severity: "success",summary: 'Успешно', detail: 'Ваша заявка принята, ожидайте ответ', life: 3000});
+};
 
 const { myFormTeleg } = useUser()
 
@@ -61,6 +61,16 @@ const userCall = ref({
   phoneNumber: ''
 })
 
+function onClick(){
+  if(userCall.value.name === '' || userCall.value.phoneNumber === ''){
+    toast.add({severity: "warn",summary: 'Внимание', detail: 'Заполните все поля', life: 3000});
+  }else{
+    myFormTeleg(userCall.value.name, userCall.value.phoneNumber)
+    showSucces()
+    userCall.value.name = ''
+    userCall.value.phoneNumber = ''
+  }
+}
 // @change - emit('change', $event)
 // [{field: 'name', value: '', type: 'input'}, {field: 'phoneNumber', value: '', type: 'dropdown', options: [{}]}}]
 

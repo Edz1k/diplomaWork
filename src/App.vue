@@ -3,6 +3,7 @@
   import { RouterView } from 'vue-router';
   import { onMounted } from 'vue';
   import { useUser } from './composable/useAnything';
+  import Toast from 'primevue/toast';
   import FooterComponent from './components/FooterComponent.vue';
   const { getUserFromLocalStorage } = useUser();
 
@@ -12,6 +13,7 @@
   
 </script>
 <template>
+  <Toast/>
   <NavbarComponent />
   <RouterView/>
   <FooterComponent />

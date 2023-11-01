@@ -6,7 +6,6 @@ import { db } from '@/firebase'
 import { ref, computed } from 'vue'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
-
 const user = ref()
 const userList = ref([] as DocumentData)
 const loading = ref({

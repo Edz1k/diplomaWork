@@ -3,7 +3,7 @@
     <Button
       label="Оставить отзыв"
       severity="warning"
-      @click="visible = true"
+      @click="checker"
       class="askforacallbtn"
     />
     <Dialog v-model:visible="visible" modal header="Оставить отзыв">
@@ -36,25 +36,42 @@
 import Button from 'primevue/button'
 import { ref } from 'vue'
 import Dialog from 'primevue/dialog'
-
 import Rating from 'primevue/rating'
-
 import Textarea from 'primevue/textarea'
-
+import { useUser } from '@/composable/useAnything'
 import { useContent } from '@/composable/useContent'
+import { useToast } from 'primevue/usetoast';
 
+const toast = useToast();
 const { addContent, newContent,getAllContent } = useContent()
+const { user } = useUser()
+
+const showWarn = () => {
+    toast.add({ severity: 'warn', summary: 'Войдите в Аккаунт', detail: 'Для того чтобы оставить отзыв вам необходимо войти в аккаунт', life: 3000 });
+};
+
+const showSucces = ()=>{
+  toast.add({severity: "success",summary: 'Успешно', detail: 'Ваш отзыв добавлен', life: 3000});
+};
+
 
 const visible = ref(false)
 const toggleVisible = () => {
   visible.value = !visible.value
 }
 
-
+async function checker() {
+  if(!user.value){
+    showWarn()
+  }else{
+    visible.value = true
+  }
+}
 async function onClickContent () {
   toggleVisible()
   const res = await addContent()
   if (res) {
+    showSucces()
     await getAllContent()
   }
   newContent.value.text = ''; 
