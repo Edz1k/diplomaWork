@@ -1,7 +1,5 @@
 <template>
-  <div v-if="user">
     <ModalReview />
-  </div>
   <div v-if="loading.contentList">
     <Skeleton width="100%" height="250px" />
   </div>
@@ -83,6 +81,9 @@ const sortedReviews = computed(() => {
 }
 :deep(.p-card-content) {
   height: 180px;
+}
+:deep(.p-rating .p-rating-item.p-rating-item-active .p-rating-icon){
+    color: #ff9f42;
 }
 .imagee {
   width: 100%;
