@@ -124,4 +124,21 @@ const images = ref([
         align-content: center;
         justify-content: center;
     }
+    @media(max-width: 960px){
+        .positioner{
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+        :deep(.p-card){
+            width: 90%;
+        }
+        .back-container{
+            height: 350px;
+        }
+    }
+    @media(max-width: 350px){
+        .marks{
+            flex-direction: column;
+        }
+    }
 </style>
