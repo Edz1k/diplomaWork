@@ -1,7 +1,7 @@
 <template>
   <Menubar :model="items" class="menubarchik">
     <template #start>
-      <h2>Akeramzit</h2>
+      <RouterLink to="/"><h2>Akeramzit</h2></RouterLink>
     </template>
     <template #end>
       <div class="socialsnav">
@@ -20,7 +20,9 @@
 import { ref } from 'vue'
 import Menubar from 'primevue/menubar'
 import ModalCall from './ModalCall.vue'
+import { RouterLink } from 'vue-router';
 import  UserProfile  from './UserProfile.vue';
+
 
 const items = ref<MenuItem[]>([
   {
@@ -62,6 +64,10 @@ interface MenuItem {
     .socialsnav{
       display: none;
     }
+}
+a{
+  color: #fe7b3e;
+  text-decoration: none;
 }
 :deep(.p-menubar-start) {
   margin-right: auto;

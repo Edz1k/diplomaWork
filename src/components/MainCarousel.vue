@@ -1,5 +1,4 @@
-<template>
-    
+<template> 
     <div class="card">
       <div class="main">
           <div class="infotext">
@@ -26,11 +25,13 @@
         </template>
       </Galleria>
     </div>
+    <QualitiesComponent class="qualitiesComponent"/>
   </template>
   <script setup lang="ts">
       
   import Galleria from 'primevue/galleria';
   import BlockWithAnswer from './BlockWithAnswer.vue';
+  import QualitiesComponent from './QualitiesComponent.vue';
   import { ref } from 'vue';
   
   const images = ref([
@@ -43,6 +44,9 @@
   <style scoped>
   :deep(.p-galleria-content){
     width: 50%;
+  }
+  .qualitiesComponent{
+    margin-top: 50px;
   }
 
 .main {

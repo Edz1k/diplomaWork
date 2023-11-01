@@ -25,8 +25,7 @@ const editContent = ref({
   photo: '',
   stars: 4,
   date: 0,
-}
-)
+})
 
 const selectedReview = ref('')
 
