@@ -1,5 +1,6 @@
 <template>
     <div class="positioner">
+        
         <Galleria
             :value="images"
             :numVisible="5"
@@ -12,12 +13,13 @@
             :autoPlay="true"
             :transitionInterval="10000"
         >
+        
             <template #item="slotProps">
-                
+                <div class="back-container"></div>
                 <img :src="slotProps.item.source" style="width: 100%; display: block;" />
             </template>
         </Galleria>
-
+        
         <Card>
             <template #title> Керамзит</template>
             <template #content>
@@ -38,11 +40,11 @@
                 <div class="marks">
                     <div>
                         <p>Марка насыпной плотности:</p>
-                        <span>М 250-500</span>
+                        <span class="spanchiki">М 250-500</span>
                     </div>
                     <div>
                         <p>Марка прочности:</p>
-                        <span>П75</span>
+                        <span class="spanchiki">П75</span>
                     </div>
                 </div>
                 <p>Отгрузка/доставка: </p>
@@ -84,9 +86,23 @@ const images = ref([
     :deep(.p-card-title){
         font-size: 28px;
     }
+    .back-container {
+        position: absolute;
+        top: -15%;
+        left: -18%;
+        width: 200px;
+        height: 550px;
+        filter: opacity(30%);
+        background-color: #ff9f42;
+        z-index: -1; /* Установите z-index на -1, чтобы сделать его ниже Galleria */
+    }
     span{
         color: #ff9f42;
         font-size: 18px;
+        font-weight: bold;
+    }
+    .spanchiki{
+        font-size: 28px;
         font-weight: bold;
     }
     .kerlist > li::marker{
