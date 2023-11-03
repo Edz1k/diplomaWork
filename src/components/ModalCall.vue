@@ -67,6 +67,7 @@ function onClick(){
   }else{
     myFormTeleg(userCall.value.name, userCall.value.phoneNumber)
     showSucces()
+    toggleVisible()
     userCall.value.name = ''
     userCall.value.phoneNumber = ''
   }
