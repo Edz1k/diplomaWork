@@ -27,6 +27,7 @@
     </div>
     <QualitiesComponent class="qualitiesComponent"/>
     <KeramzitForm class="KeramzitForm"/>
+    <!-- <StepscComponent /> -->
   </template>
   <script setup lang="ts">
       
@@ -34,6 +35,7 @@
   import BlockWithAnswer from './BlockWithAnswer.vue';
   import QualitiesComponent from './QualitiesComponent.vue';
   import KeramzitForm from './KeramzitForm.vue';
+  // import StepscComponent from './StepscComponent.vue';
   import { ref } from 'vue';
   
   const images = ref([
